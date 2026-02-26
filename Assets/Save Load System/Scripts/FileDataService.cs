@@ -14,9 +14,14 @@ namespace System.Persistence
         string dataPath;
         string fileExtension;
 
+        byte maxSaveCount = 6;
+
         public FileDataService(ISerializer serializer)
         {
             this.dataPath = Application.persistentDataPath;
+            this.dataPath = Path.Combine(this.dataPath, "Saves");
+            Directory.CreateDirectory(dataPath);
+
             this.fileExtension = "json";
             this.serializer = serializer;
         }
@@ -28,9 +33,16 @@ namespace System.Persistence
 
         public void Save(GameData data, bool overwrite = true)
         {
+            //Check for MAX Saves!
+            if(SaveSlotUtility.CountSaves(dataPath) >= maxSaveCount)
+            {
+                Debug.LogWarning("Reached/Exceeded max amount of save slots!");
+                return;
+            }
+
             string fileLocation = GetPathToFile(data.Name);
 
-            if(!overwrite && File.Exists(fileLocation))
+            if (!overwrite && File.Exists(fileLocation))
             {
                 throw new IOException($"The file '{data.Name}.{fileExtension}' already exists and cannot be overwritten.");
             }

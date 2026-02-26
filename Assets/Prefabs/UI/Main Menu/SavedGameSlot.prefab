@@ -287,8 +287,9 @@ GameObject:
   - component: {fileID: 2494380033177937031}
   - component: {fileID: 970529437833828124}
   - component: {fileID: 560864745129080053}
+  - component: {fileID: 5130685829304506905}
   m_Layer: 5
-  m_Name: SavedGame_Btn
+  m_Name: SavedGameSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -419,6 +420,22 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &5130685829304506905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6307111297436348174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d095fef1d5ce91458ee593e1789d9df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveSlotData
+  playerNameTxt: {fileID: 2302178536084216546}
+  playerLevelTxt: {fileID: 1646270256011423882}
+  reputationTxt: {fileID: 2993712430203243024}
+  saveImage: {fileID: 3443066101734564071}
 --- !u!1 &7401293397569099478
 GameObject:
   m_ObjectHideFlags: 0

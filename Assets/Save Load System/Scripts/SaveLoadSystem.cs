@@ -89,7 +89,9 @@ namespace System.Persistence
 
                 playerData = new PlayerData
                 {
-                    playerName = "New Hero"
+                    playerName = "New Hero",
+                    playerLevel = 0,
+                    playerReputation = "Cub"
                 }
             };
 
