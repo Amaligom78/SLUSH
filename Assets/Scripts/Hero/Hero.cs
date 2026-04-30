@@ -16,14 +16,14 @@ namespace System.Persistence
             this.data = _data;
             this.data.Id = Id;
 
-            transform.position = data.position;
-            transform.rotation = data.rotation;
+            transform.position = data.playerPosition;
+            transform.rotation = data.playerRotation;
         }
 
         private void Update()
         {
-            data.position = transform.position;
-            data.rotation = transform.rotation;
+            data.playerPosition = transform.position;
+            data.playerRotation = transform.rotation;
         }
     }
 
@@ -34,8 +34,7 @@ namespace System.Persistence
         public string playerName;
         public int playerLevel;
         public string playerReputation;
-        public Vector3 position;
-        public Quaternion rotation;
-
+        public Vector3 playerPosition;
+        public Quaternion playerRotation;
     }
 }

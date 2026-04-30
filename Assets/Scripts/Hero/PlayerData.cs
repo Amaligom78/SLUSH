@@ -11,6 +11,6 @@ public class PlayerData : ISaveable
     public string playerName;
     public int playerLevel;
     public string playerReputation;
-    public Vector3 position;
-    public Quaternion rotation;
+    public Vector3 playerPosition;
+    public Quaternion playerRotation;
 }

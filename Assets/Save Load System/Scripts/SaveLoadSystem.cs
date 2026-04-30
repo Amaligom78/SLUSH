@@ -85,13 +85,15 @@ namespace System.Persistence
             gameData = new GameData
             {
                 Name = "New Game",
-                CurrentLevelName = "Sandbox",
+                CurrentLevelName = "Hobson",
 
                 playerData = new PlayerData
                 {
                     playerName = "New Hero",
-                    playerLevel = 0,
-                    playerReputation = "Cub"
+                    playerLevel = 1,
+                    playerReputation = "Cub",
+                    playerPosition = new Vector3(680, 100, 530),
+                    playerRotation = new Quaternion(0, 0, 0, 0)
                 }
             };
 
@@ -109,7 +111,7 @@ namespace System.Persistence
 
             if(String.IsNullOrWhiteSpace(gameData.CurrentLevelName))
             {
-                gameData.CurrentLevelName = "Sandbox";
+                gameData.CurrentLevelName = "Hobson";
             }
 
             SceneManager.LoadScene(gameData.CurrentLevelName);

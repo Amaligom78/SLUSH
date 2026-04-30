@@ -56,8 +56,11 @@ MonoBehaviour:
       Part2: 0
       Part3: 0
       Part4: 0
-    position: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
+    playerName: 
+    playerLevel: 0
+    playerReputation: 
+    playerPosition: {x: 0, y: 0, z: 0}
+    playerRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &3900659933776021179
 GameObject:
   m_ObjectHideFlags: 0
