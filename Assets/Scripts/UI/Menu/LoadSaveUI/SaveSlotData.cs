@@ -5,8 +5,8 @@ using System.Persistence;
 
 public class SaveSlotData : MonoBehaviour
 {
-    public TMP_Text playerNameTxt;
-    public TMP_Text playerLevelTxt;
+    public TMP_Text heroNameTxt;
+    public TMP_Text heroLevelTxt;
     public TMP_Text reputationTxt;
     public Image saveImage;
     protected string gameName;
@@ -24,11 +24,11 @@ public class SaveSlotData : MonoBehaviour
         
     }
 
-    public void AssignData(string _playerNameTxt, string _playerLevelTxt, string _playerReputationTxt, string _gameName)
+    public void AssignData(string _heroNameTxt, string _heroLevelTxt, string _heroReputationTxt, string _gameName)
     {
-        playerNameTxt.text = string.Concat("Name: ", _playerNameTxt);
-        playerLevelTxt.text = string.Concat("Level: ", _playerLevelTxt);
-        reputationTxt.text = string.Concat("Repuatation: ", _playerReputationTxt);
+        heroNameTxt.text = string.Concat("Name: ", _heroNameTxt);
+        heroLevelTxt.text = string.Concat("Level: ", _heroLevelTxt);
+        reputationTxt.text = string.Concat("Repuatation: ", _heroReputationTxt);
         //saveImage = _saveImage;
         gameName = _gameName;
     }

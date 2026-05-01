@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2454810860088009568}
   - component: {fileID: 1646270256011423882}
   m_Layer: 5
-  m_Name: PlayerLevel_Txt
+  m_Name: HeroLevel_Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 3832946408733415439}
   - component: {fileID: 2993712430203243024}
   m_Layer: 5
-  m_Name: PlayerReputation_Txt
+  m_Name: HeroReputation_Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -444,8 +444,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d095fef1d5ce91458ee593e1789d9df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveSlotData
-  playerNameTxt: {fileID: 2302178536084216546}
-  playerLevelTxt: {fileID: 1646270256011423882}
+  heroNameTxt: {fileID: 2302178536084216546}
+  heroLevelTxt: {fileID: 1646270256011423882}
   reputationTxt: {fileID: 2993712430203243024}
   saveImage: {fileID: 3443066101734564071}
   saveSlots: {fileID: 0}
@@ -537,7 +537,7 @@ GameObject:
   - component: {fileID: 2401683512166826874}
   - component: {fileID: 2302178536084216546}
   m_Layer: 5
-  m_Name: PlayerName_Txt
+  m_Name: HeroName_Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

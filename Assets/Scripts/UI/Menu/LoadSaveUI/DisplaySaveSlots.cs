@@ -36,8 +36,8 @@ public class DisplaySaveSlots : MonoBehaviour
 
                 //saveSlotPlacement[index].gameObject.SetActive(false);
                 saveSlots[index].gameObject.SetActive(true);
-                saveSlots[index].GetComponent<SaveSlotData>().AssignData(gameData.playerData.playerName, gameData.playerData.playerLevel.ToString(),
-                    gameData.playerData.playerReputation, gameData.Name);
+                saveSlots[index].GetComponent<SaveSlotData>().AssignData(gameData.heroData.heroName, gameData.heroData.heroLevel.ToString(),
+                    gameData.heroData.heroReputation, gameData.Name);
 
                 index++;
             }
@@ -61,6 +61,7 @@ public class DisplaySaveSlots : MonoBehaviour
             foreach(GameObject slot in saveSlots)
             {
                 slot.GetComponent<Button>().interactable = true;
+                MenuNavigation.Instance.SetMenuNavigation(true);
             }
         }
         else
@@ -68,6 +69,7 @@ public class DisplaySaveSlots : MonoBehaviour
             foreach (GameObject slot in saveSlots)
             {
                 slot.GetComponent<Button>().interactable = false;
+                MenuNavigation.Instance.SetMenuNavigation(false);
             }
         }
     }

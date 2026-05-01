@@ -6,35 +6,37 @@ using UnityEngine;
 namespace System.Persistence
 { 
 
-    public class Hero : MonoBehaviour, IBind<PlayerData>
+    public class Hero : MonoBehaviour, IBind<HeroData>
     {
         [field: SerializeField] public SerializableGuid Id { get; set; } = SerializableGuid.NewGuid();
-        [SerializeField] PlayerData data;
+        [SerializeField] HeroData data;
+        private Rigidbody rb;
 
-        public void Bind(PlayerData _data)
+        public void Bind(HeroData _data)
         {
             this.data = _data;
             this.data.Id = Id;
+            this.rb = GetComponent<Rigidbody>();
 
-            transform.position = data.playerPosition;
-            transform.rotation = data.playerRotation;
+            rb.position = data.heroPosition;
+            rb.rotation = data.heroRotation;
         }
 
         private void Update()
         {
-            data.playerPosition = transform.position;
-            data.playerRotation = transform.rotation;
+            data.heroPosition = transform.position;
+            data.heroRotation = transform.rotation;
         }
     }
 
     [Serializable]
-    public class PlayerData : ISaveable
+    public class HeroData : ISaveable
     {
         [field: SerializeField] public SerializableGuid Id { get; set; }
-        public string playerName;
-        public int playerLevel;
-        public string playerReputation;
-        public Vector3 playerPosition;
-        public Quaternion playerRotation;
+        public string heroName;
+        public int heroLevel;
+        public string heroReputation;
+        public Vector3 heroPosition;
+        public Quaternion heroRotation;
     }
 }

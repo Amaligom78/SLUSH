@@ -13,7 +13,7 @@ namespace System.Persistence
     {
         public string Name = "New Game";
         public string CurrentLevelName;
-        public PlayerData playerData;
+        public HeroData heroData;
     }
 
     public interface ISaveable
@@ -46,7 +46,7 @@ namespace System.Persistence
         {
             if (scene.name == "Main Menu") return;
 
-            Bind<Hero, PlayerData>(gameData.playerData);
+            Bind<Hero, HeroData>(gameData.heroData);
             //Bind<Inventory.Inventory, InventoryData>(gameData.inventoryData);
         }
 
@@ -87,13 +87,13 @@ namespace System.Persistence
                 Name = "New Game",
                 CurrentLevelName = "Hobson",
 
-                playerData = new PlayerData
+                heroData = new HeroData
                 {
-                    playerName = "New Hero",
-                    playerLevel = 1,
-                    playerReputation = "Cub",
-                    playerPosition = new Vector3(680, 100, 530),
-                    playerRotation = new Quaternion(0, 0, 0, 0)
+                    heroName = "New Hero",
+                    heroLevel = 1,
+                    heroReputation = "Cub",
+                    heroPosition = new Vector3(680, 100, 530),
+                    heroRotation = Quaternion.identity
                 }
             };
 
