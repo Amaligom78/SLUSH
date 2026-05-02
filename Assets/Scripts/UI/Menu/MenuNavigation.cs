@@ -8,7 +8,7 @@ public class MenuNavigation : MonoBehaviour
     public static MenuNavigation Instance { get; private set; }
     public GameObject[] menus;
     public int defaultMenuIndex = 0;
-    private int currentMenuIndex = 0;
+    public int currentMenuIndex {  get; private set; }
     private bool isActive = true;
 
     private void Awake()
@@ -49,6 +49,11 @@ public class MenuNavigation : MonoBehaviour
     public void SetMenuNavigation(bool _canNavigate)
     {
         isActive = _canNavigate;
+    }
+
+    public void SetCurrentMenuIndex(int _index)
+    {
+        currentMenuIndex = _index;
     }
 
     public int GetMenuIndex(GameObject _menu)

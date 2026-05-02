@@ -23,8 +23,8 @@ public class HeroMovement : MonoBehaviour
 
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
         Vector3 inputDirection = new Vector3(horizontal, 0f, vertical).normalized;
 
         if(inputDirection.magnitude >= 0.1f)
