@@ -5,6 +5,7 @@ public class UI_Manager : MonoBehaviour
 {
 
     public PauseMenu pauseMenu;
+    public HUD hud;
 
     void Start()
     {

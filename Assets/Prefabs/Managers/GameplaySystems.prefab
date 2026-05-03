@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 3964410195177498101, guid: 9d72ead82dbd60c40b42948fae42046a, type: 3}
+      propertyPath: hud
+      value: 
+      objectReference: {fileID: 723278439977542281}
     - target: {fileID: 7605430375848814257, guid: 9d72ead82dbd60c40b42948fae42046a, type: 3}
       propertyPath: defaultMenuIndex
       value: 0
@@ -187,7 +191,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -642287525753513317, guid: 9d72ead82dbd60c40b42948fae42046a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d72ead82dbd60c40b42948fae42046a, type: 3}
@@ -196,6 +201,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8566957918076945383, guid: 9d72ead82dbd60c40b42948fae42046a, type: 3}
   m_PrefabInstance: {fileID: 8627269377391793730}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &723278439977542281 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9057774739401241803, guid: 9d72ead82dbd60c40b42948fae42046a, type: 3}
+  m_PrefabInstance: {fileID: 8627269377391793730}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45a57e45fa43d3e4ba580e9f83b02bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HUD_Manager
 --- !u!1 &3722515300132023219 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4905317450345119217, guid: 9d72ead82dbd60c40b42948fae42046a, type: 3}

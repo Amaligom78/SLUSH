@@ -91,6 +91,8 @@ namespace System.Persistence
                 {
                     heroName = "New Hero",
                     heroLevel = 1,
+                    heroHealth = 5,
+                    heroShield = 0,
                     heroReputation = "Cub",
                     heroPosition = new Vector3(680, 100, 530),
                     heroRotation = Quaternion.identity
@@ -103,6 +105,7 @@ namespace System.Persistence
         public void SaveGame()
         {
             dataService.Save(gameData);
+            Debug.Log("Game Saved\n" +  gameData.Name);
         }
 
         public void LoadGame(string gameName)

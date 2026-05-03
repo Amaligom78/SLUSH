@@ -16,6 +16,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         SetGamePaused(true);
         print("Game Paused");
+        SystemManager.Instance.inputManager.ToggleCursor(false);
     }
 
     void Start()
@@ -45,7 +46,13 @@ public class PauseMenu : MonoBehaviour
     {
         SetGamePaused(false);
         Time.timeScale = 1f;
+        SystemManager.Instance.inputManager.ToggleCursor(true);
         gameObject.SetActive(false);
+    }
+
+    public void OnClickSaveGame()
+    {
+        SaveLoadSystem.Instance.SaveGame();
     }
 
     public void OnClickQuit()
@@ -53,12 +60,14 @@ public class PauseMenu : MonoBehaviour
         SaveLoadSystem.Instance.SaveGame();
         Time.timeScale = 1f;
         gameObject.SetActive(false);
+        SystemManager.Instance.inputManager.ToggleCursor(false);
         SceneManager.LoadScene("Main Menu");
     }
 
     public void OnDisable()
     {
         menuNav.SetCurrentMenuIndex(0);
+        SystemManager.Instance.inputManager.ToggleCursor(true);
         print("Game UnPaused");
     }
 }
