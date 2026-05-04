@@ -24,7 +24,6 @@ public class PauseMenu : MonoBehaviour
         
     }
 
-
     void Update()
     {
         if(isGamePaused)
@@ -40,7 +39,6 @@ public class PauseMenu : MonoBehaviour
     {
         isGamePaused = _isPaused;
     }
-
 
     public void OnClickResume()
     {
