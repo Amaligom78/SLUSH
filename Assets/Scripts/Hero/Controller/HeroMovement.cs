@@ -1,10 +1,18 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using System;
 
-public class HeroMovement : MonoBehaviour
+public class HeroMovement : MonoBehaviour, HeroControls.IHeroActions
 {
 
+    public Vector2 MovementValue {  get; private set; }
+    public event Action JumpEvent;
+    public event Action DodgeEvent;
+    public event Action MoveEvent;
+
     private Rigidbody rb;
+    private HeroControls heroControls;
     [SerializeField] Transform cameraTransform;
     [SerializeField] private float heroMoveSpeed = 5f;
     [SerializeField] private float heroRotSpeed = 12f;
@@ -17,7 +25,9 @@ public class HeroMovement : MonoBehaviour
 
     void Start()
     {
-        
+        heroControls = new HeroControls();
+        heroControls.Hero.SetCallbacks(this);
+        heroControls.Hero.Enable();
     }
 
 
@@ -60,4 +70,31 @@ public class HeroMovement : MonoBehaviour
 
         rb.Move(newPosition, newRotation);
     }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+
+        JumpEvent?.Invoke();
+    }
+
+    public void OnDodge(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+
+        DodgeEvent?.Invoke();
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        MovementValue = context.ReadValue<Vector2>();
+    }
+
+    private void OnDestroy()
+    {
+        heroControls.Hero.Disable();
+    }
+
 }

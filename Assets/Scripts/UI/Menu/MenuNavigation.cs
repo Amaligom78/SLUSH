@@ -28,6 +28,9 @@ public class MenuNavigation : MonoBehaviour
         }
 
         currentMenuIndex = defaultMenuIndex;
+
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 
     void Start()

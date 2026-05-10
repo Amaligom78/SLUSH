@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
@@ -16,9 +17,9 @@ public class InputManager : MonoBehaviour
         
     }
 
-    public void ToggleCursor(bool _isHidden)
+    public void ToggleCursor(bool _isEnabled)
     {
-        if(_isHidden)
+        if(!_isEnabled)
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;

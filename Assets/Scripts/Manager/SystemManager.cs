@@ -26,10 +26,7 @@ public class SystemManager : PersistentSingleton<SystemManager>
 
     private void OnSceneLoaded(Scene _scene, LoadSceneMode _mode)
     {
-        if(_scene.name == "Main Menu")
-        {
-            uiManager.pauseMenu.SetGamePaused(false);
-        }
+        uiManager.UpdateManager();
     }
 
     public string GetScene()
