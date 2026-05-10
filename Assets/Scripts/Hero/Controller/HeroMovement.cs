@@ -1,100 +1,67 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using System;
 
-public class HeroMovement : MonoBehaviour, HeroControls.IHeroActions
+public class HeroMovement : HeroBaseState
 {
+    public HeroMovement(HeroFSM _stateMachine) : base(_stateMachine) { }
 
-    public Vector2 MovementValue {  get; private set; }
-    public event Action JumpEvent;
-    public event Action DodgeEvent;
-    public event Action MoveEvent;
-
-    private Rigidbody rb;
-    private HeroControls heroControls;
-    [SerializeField] Transform cameraTransform;
-    [SerializeField] private float heroMoveSpeed = 5f;
-    [SerializeField] private float heroRotSpeed = 12f;
     private Vector3 heroFacingDirection;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
+    private readonly int movementSpeed = Animator.StringToHash("MovementSpeed");
 
     void Start()
     {
-        heroControls = new HeroControls();
-        heroControls.Hero.SetCallbacks(this);
-        heroControls.Hero.Enable();
+        
     }
 
-
-    void Update()
+    public override void Enter()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 inputDirection = new Vector3(horizontal, 0f, vertical).normalized;
 
-        if(inputDirection.magnitude >= 0.1f)
-        {
-            Vector3 cameraForward = cameraTransform.forward;
-            Vector3 cameraRight = cameraTransform.right;
+    }
 
-            cameraForward.y = 0f;
-            cameraRight.y = 0f;
+    public override void Tick(float _deltaTime)
+    {
+        Vector2 movementValue = stateMachine.InputReader.MovementValue;
 
-            cameraForward.Normalize();
-            cameraRight.Normalize();
+        Vector3 inputDirection = new Vector3(movementValue.x, 0f, movementValue.y);
 
-            heroFacingDirection = cameraForward * inputDirection.z + cameraRight * inputDirection.x;
-        }
-        else
+        if (inputDirection.sqrMagnitude < 0.01f)
         {
             heroFacingDirection = Vector3.zero;
+            return;
         }
+
+        inputDirection.Normalize();
+
+        Vector3 cameraForward = stateMachine.CameraTransform.forward;
+        Vector3 cameraRight = stateMachine.CameraTransform.right;
+
+        cameraForward.y = 0f;
+        cameraRight.y = 0f;
+
+        cameraForward.Normalize();
+        cameraRight.Normalize();
+
+        heroFacingDirection = cameraForward * inputDirection.z + cameraRight * inputDirection.x;
+        heroFacingDirection.Normalize();
     }
 
-    private void FixedUpdate()
+    public override void FixedTick(float _fixedDeltaTime)
     {
-        if (heroFacingDirection == Vector3.zero)
+        if (heroFacingDirection.sqrMagnitude < 0.01f)
         {
+            stateMachine.heroAnimator.SetFloat(movementSpeed, 0, 0.1f, _fixedDeltaTime);
             return;
         }
 
-        Vector3 newPosition = rb.position + heroFacingDirection * heroMoveSpeed * Time.fixedDeltaTime;
-
+        Vector3 newPosition = stateMachine.Rigidbody.position + heroFacingDirection * stateMachine.MoveSpeed * _fixedDeltaTime;
         Quaternion targetRotation = Quaternion.LookRotation(heroFacingDirection);
-        Quaternion newRotation = Quaternion.Slerp(rb.rotation, targetRotation, heroRotSpeed * Time.fixedDeltaTime);
+        Quaternion newRotation = Quaternion.Slerp(stateMachine.Rigidbody.rotation, targetRotation, stateMachine.RotationSpeed * _fixedDeltaTime);
 
-        rb.Move(newPosition, newRotation);
+        stateMachine.Rigidbody.Move(newPosition, newRotation);
+        stateMachine.heroAnimator.SetFloat(movementSpeed, 1, 0.1f, _fixedDeltaTime);
     }
 
-    public void OnJump(InputAction.CallbackContext context)
+    public override void Exit()
     {
-        if (!context.performed)
-            return;
-
-        JumpEvent?.Invoke();
+        
     }
-
-    public void OnDodge(InputAction.CallbackContext context)
-    {
-        if (!context.performed)
-            return;
-
-        DodgeEvent?.Invoke();
-    }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        MovementValue = context.ReadValue<Vector2>();
-    }
-
-    private void OnDestroy()
-    {
-        heroControls.Hero.Disable();
-    }
-
 }
