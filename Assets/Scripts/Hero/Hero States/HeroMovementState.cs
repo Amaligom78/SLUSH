@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class HeroMovement : HeroBaseState
+public class HeroMovementState : HeroBaseState
 {
-    public HeroMovement(HeroFSM _stateMachine) : base(_stateMachine) { }
+    public HeroMovementState(HeroFSM _stateMachine) : base(_stateMachine) { }
 
     private Vector3 heroFacingDirection;
     private readonly int movementSpeed = Animator.StringToHash("MovementSpeed");
@@ -14,12 +14,12 @@ public class HeroMovement : HeroBaseState
 
     public override void Enter()
     {
-
+        stateMachine.inputReader.TargetEvent += OnTarget;
     }
 
     public override void Tick(float _deltaTime)
     {
-        Vector2 movementValue = stateMachine.InputReader.MovementValue;
+        Vector2 movementValue = stateMachine.inputReader.MovementValue;
 
         Vector3 inputDirection = new Vector3(movementValue.x, 0f, movementValue.y);
 
@@ -31,8 +31,8 @@ public class HeroMovement : HeroBaseState
 
         inputDirection.Normalize();
 
-        Vector3 cameraForward = stateMachine.CameraTransform.forward;
-        Vector3 cameraRight = stateMachine.CameraTransform.right;
+        Vector3 cameraForward = stateMachine.cameraTransform.forward;
+        Vector3 cameraRight = stateMachine.cameraTransform.right;
 
         cameraForward.y = 0f;
         cameraRight.y = 0f;
@@ -52,16 +52,23 @@ public class HeroMovement : HeroBaseState
             return;
         }
 
-        Vector3 newPosition = stateMachine.Rigidbody.position + heroFacingDirection * stateMachine.MoveSpeed * _fixedDeltaTime;
+        Vector3 newPosition = stateMachine.Rigidbody.position + heroFacingDirection * stateMachine.moveSpeed * _fixedDeltaTime;
         Quaternion targetRotation = Quaternion.LookRotation(heroFacingDirection);
-        Quaternion newRotation = Quaternion.Slerp(stateMachine.Rigidbody.rotation, targetRotation, stateMachine.RotationSpeed * _fixedDeltaTime);
+        Quaternion newRotation = Quaternion.Slerp(stateMachine.Rigidbody.rotation, targetRotation, stateMachine.rotationSpeed * _fixedDeltaTime);
 
         stateMachine.Rigidbody.Move(newPosition, newRotation);
         stateMachine.heroAnimator.SetFloat(movementSpeed, 1, 0.1f, _fixedDeltaTime);
     }
 
+    private void OnTarget()
+    {
+        if (!stateMachine.targeter.SelectTarget()) return;
+
+        stateMachine.SwitchState(new HeroTargetingState(stateMachine));
+    }
+
     public override void Exit()
     {
-        
+        stateMachine.inputReader.TargetEvent -= OnTarget;
     }
 }

@@ -118,6 +118,15 @@ public partial class @HeroControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Target"",
+                    ""type"": ""Button"",
+                    ""id"": ""969b9ae6-5cb1-4aad-8c20-837cfc2c9523"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -296,6 +305,28 @@ public partial class @HeroControls: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4100dca5-a028-428b-a060-ec6d3e2830d1"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard & Mouse"",
+                    ""action"": ""Target"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5be4f246-d74a-4caa-a658-2cd8e3b946f9"",
+                    ""path"": ""<XInputController>/leftTrigger"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Target"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -335,6 +366,7 @@ public partial class @HeroControls: IInputActionCollection2, IDisposable
         m_Hero_Jump = m_Hero.FindAction("Jump", throwIfNotFound: true);
         m_Hero_Dodge = m_Hero.FindAction("Dodge", throwIfNotFound: true);
         m_Hero_Move = m_Hero.FindAction("Move", throwIfNotFound: true);
+        m_Hero_Target = m_Hero.FindAction("Target", throwIfNotFound: true);
     }
 
     ~@HeroControls()
@@ -418,6 +450,7 @@ public partial class @HeroControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Hero_Jump;
     private readonly InputAction m_Hero_Dodge;
     private readonly InputAction m_Hero_Move;
+    private readonly InputAction m_Hero_Target;
     /// <summary>
     /// Provides access to input actions defined in input action map "Hero".
     /// </summary>
@@ -441,6 +474,10 @@ public partial class @HeroControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Hero/Move".
         /// </summary>
         public InputAction @Move => m_Wrapper.m_Hero_Move;
+        /// <summary>
+        /// Provides access to the underlying input action "Hero/Target".
+        /// </summary>
+        public InputAction @Target => m_Wrapper.m_Hero_Target;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -476,6 +513,9 @@ public partial class @HeroControls: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @Target.started += instance.OnTarget;
+            @Target.performed += instance.OnTarget;
+            @Target.canceled += instance.OnTarget;
         }
 
         /// <summary>
@@ -496,6 +536,9 @@ public partial class @HeroControls: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @Target.started -= instance.OnTarget;
+            @Target.performed -= instance.OnTarget;
+            @Target.canceled -= instance.OnTarget;
         }
 
         /// <summary>
@@ -583,5 +626,12 @@ public partial class @HeroControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Target" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTarget(InputAction.CallbackContext context);
     }
 }

@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class HeroFSM : StateMachine
 {
-    [field: SerializeField] public HeroInputReader InputReader { get; private set; }
+    [field: SerializeField] public HeroInputReader inputReader { get; private set; }
+    [field: SerializeField] public Targeter targeter { get; private set; }
     [field: SerializeField] public Animator heroAnimator { get; private set; }
-    [field: SerializeField] public Transform CameraTransform { get; private set; }
-    [field: SerializeField] public float MoveSpeed { get; private set; } = 5f;
-    [field: SerializeField] public float RotationSpeed { get; private set; } = 12f;
+    [field: SerializeField] public Transform cameraTransform { get; private set; }
+    [field: SerializeField] public float moveSpeed { get; private set; } = 5f;
+    [field: SerializeField] public float rotationSpeed { get; private set; } = 12f;
 
     public Rigidbody Rigidbody { get; private set; }
 
@@ -19,6 +20,6 @@ public class HeroFSM : StateMachine
 
     private void Start()
     {
-        SwitchState(new HeroMovement(this));
+        SwitchState(new HeroMovementState(this));
     }
 }
