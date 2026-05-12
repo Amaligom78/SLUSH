@@ -10,12 +10,12 @@ public class HeroFSM : StateMachine
     [field: SerializeField] public float moveSpeed { get; private set; } = 5f;
     [field: SerializeField] public float rotationSpeed { get; private set; } = 12f;
 
-    public Rigidbody Rigidbody { get; private set; }
+    public Rigidbody rb { get; private set; }
 
 
     private void Awake()
     {
-        Rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Start()

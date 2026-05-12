@@ -5,6 +5,7 @@ public class HeroMovementState : HeroBaseState
     public HeroMovementState(HeroFSM _stateMachine) : base(_stateMachine) { }
 
     private Vector3 heroFacingDirection;
+    private readonly int heroMovementBlendTree = Animator.StringToHash("HeroMovementBlendTree");
     private readonly int movementSpeed = Animator.StringToHash("MovementSpeed");
 
     void Start()
@@ -15,6 +16,7 @@ public class HeroMovementState : HeroBaseState
     public override void Enter()
     {
         stateMachine.inputReader.TargetEvent += OnTarget;
+        stateMachine.heroAnimator.Play(heroMovementBlendTree);
     }
 
     public override void Tick(float _deltaTime)
@@ -52,11 +54,11 @@ public class HeroMovementState : HeroBaseState
             return;
         }
 
-        Vector3 newPosition = stateMachine.Rigidbody.position + heroFacingDirection * stateMachine.moveSpeed * _fixedDeltaTime;
+        Vector3 newPosition = stateMachine.rb.position + heroFacingDirection * stateMachine.moveSpeed * _fixedDeltaTime;
         Quaternion targetRotation = Quaternion.LookRotation(heroFacingDirection);
-        Quaternion newRotation = Quaternion.Slerp(stateMachine.Rigidbody.rotation, targetRotation, stateMachine.rotationSpeed * _fixedDeltaTime);
+        Quaternion newRotation = Quaternion.Slerp(stateMachine.rb.rotation, targetRotation, stateMachine.rotationSpeed * _fixedDeltaTime);
 
-        stateMachine.Rigidbody.Move(newPosition, newRotation);
+        stateMachine.rb.Move(newPosition, newRotation);
         stateMachine.heroAnimator.SetFloat(movementSpeed, 1, 0.1f, _fixedDeltaTime);
     }
 
