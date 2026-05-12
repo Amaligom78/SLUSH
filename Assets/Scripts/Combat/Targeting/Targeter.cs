@@ -31,12 +31,14 @@ public class Targeter : MonoBehaviour
         if (targets.Count == 0) return false;
 
         currentTarget = targets[0];
-        targetGroup.AddMember(currentTarget.transform, 1f, 2f);
+        targetGroup.AddMember(currentTarget.transform, 1.8f, 2f);
         return true;
     }
 
     public void ClearTarget()
     {
+        if(currentTarget == null) return;
+
         targetGroup.RemoveMember(currentTarget.transform);
         currentTarget = null;
     }
