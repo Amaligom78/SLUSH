@@ -15,12 +15,16 @@ public class HeroMovementState : HeroBaseState
 
     public override void Enter()
     {
-        stateMachine.inputReader.TargetEvent += OnTarget;
+        stateMachine.inputReader.TargetStartedEvent += OnTargetStarted;
         stateMachine.heroAnimator.Play(heroMovementBlendTree);
     }
 
     public override void Tick(float _deltaTime)
     {
+        if (stateMachine.inputReader.IsTargeting)
+        {
+            TryEnterTargetingState();
+        }
         movement = CalculateMovement();
     }
 
@@ -34,7 +38,12 @@ public class HeroMovementState : HeroBaseState
         stateMachine.heroAnimator.SetFloat(movementSpeed, animatorSpeed, 0.1f, _fixedDeltaTime);
     }
 
-    private void OnTarget()
+    private void OnTargetStarted()
+    {
+        TryEnterTargetingState();
+    }
+
+    private void TryEnterTargetingState()
     {
         if (!stateMachine.targeter.SelectTarget()) return;
 
@@ -43,6 +52,6 @@ public class HeroMovementState : HeroBaseState
 
     public override void Exit()
     {
-        stateMachine.inputReader.TargetEvent -= OnTarget;
+        stateMachine.inputReader.TargetStartedEvent -= OnTargetStarted;
     }
 }

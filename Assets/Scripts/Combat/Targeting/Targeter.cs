@@ -11,47 +11,51 @@ public class Targeter : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent<Target>(out Target target) && !targets.Contains(other.GetComponent<Target>()))
-        {
-            targets.Add(target);
-            target.TargetDestroyedEvent += ClearTarget;
-        }
+        if (!other.TryGetComponent(out Target target)) return;
+        if (targets.Contains(target)) return;
+
+        targets.Add(target);
+        target.TargetDestroyedEvent += ClearTarget;
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if(targets.Contains(other.GetComponent<Target>()))
-        {
-            ClearTarget(other.GetComponent<Target>());
-        }
+        if (!other.TryGetComponent(out Target target)) return;
+        if (!targets.Contains(target)) return;
+
+        ClearTarget(target);
     }
 
     public bool SelectTarget()
     {
+        if (currentTarget != null) return true;
         if (targets.Count == 0) return false;
 
         currentTarget = targets[0];
-        targetGroup.AddMember(currentTarget.transform, 1.8f, 2f);
+        targetGroup.AddMember(currentTarget.transform, 1f, 2f);
+
         return true;
     }
 
     public void ClearTarget()
     {
-        if(currentTarget == null) return;
+        if (currentTarget == null) return;
 
         targetGroup.RemoveMember(currentTarget.transform);
         currentTarget = null;
     }
 
-    public void ClearTarget(Target _target)
+    public void ClearTarget(Target target)
     {
-        if(currentTarget == _target)
+        if (target == null) return;
+
+        if (currentTarget == target)
         {
-            targetGroup.RemoveMember(_target.transform);
+            targetGroup.RemoveMember(target.transform);
             currentTarget = null;
         }
 
-        _target.TargetDestroyedEvent -= ClearTarget;
-        targets.Remove(_target);
+        target.TargetDestroyedEvent -= ClearTarget;
+        targets.Remove(target);
     }
 }

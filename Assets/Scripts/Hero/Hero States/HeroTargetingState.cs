@@ -12,7 +12,7 @@ public class HeroTargetingState : HeroBaseState
 
     public override void Enter()
     {
-        stateMachine.inputReader.TargetEvent += OnTarget;
+        stateMachine.inputReader.TargetCanceledEvent += OnTargetCanceled;
         stateMachine.heroAnimator.Play(heroTargetingBlendTree);
     }
 
@@ -41,14 +41,14 @@ public class HeroTargetingState : HeroBaseState
         FaceTarget(_fixedDeltaTime);
     }
 
-    private void OnTarget()
+    private void OnTargetCanceled()
     {
         stateMachine.SwitchState(new HeroMovementState(stateMachine));
     }
 
     public override void Exit()
     {
-        stateMachine.inputReader.TargetEvent -= OnTarget;
+        stateMachine.inputReader.TargetCanceledEvent -= OnTargetCanceled;
         stateMachine.targeter.ClearTarget();
     }
 }

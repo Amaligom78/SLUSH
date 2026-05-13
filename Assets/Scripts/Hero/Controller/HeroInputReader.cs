@@ -7,9 +7,11 @@ public class HeroInputReader : MonoBehaviour, HeroControls.IHeroActions
 {
 
     public Vector2 MovementValue {  get; private set; }
+    public bool IsTargeting { get; private set; }
     public event Action JumpEvent;
     public event Action DodgeEvent;
-    public event Action TargetEvent;
+    public event Action TargetStartedEvent;
+    public event Action TargetCanceledEvent;
     private HeroControls heroControls;
 
     private void Awake()
@@ -45,9 +47,18 @@ public class HeroInputReader : MonoBehaviour, HeroControls.IHeroActions
 
     public void OnTarget(InputAction.CallbackContext context)
     {
-        if (context.started || context.canceled)
+        if (context.started)
         {
-            TargetEvent?.Invoke();
+            IsTargeting = true;
+            TargetStartedEvent?.Invoke();
+            return;
+        }
+
+        if (context.canceled)
+        {
+            IsTargeting = false;
+            TargetCanceledEvent?.Invoke();
+            return;
         }
     }
 
