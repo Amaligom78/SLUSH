@@ -25,6 +25,7 @@ public class HeroMovementState : HeroBaseState
         {
             TryEnterTargetingState();
         }
+
         movement = CalculateMovement();
     }
 
