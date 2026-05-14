@@ -29,8 +29,8 @@ public class HeroTargetingState : HeroBaseState
 
         Vector2 movementValue = stateMachine.inputReader.MovementValue;
 
-        //stateMachine.heroAnimator.SetFloat(targetingForward, movementValue.y, 0.1f, _deltaTime);
-        //stateMachine.heroAnimator.SetFloat(targetingRight, movementValue.x, 0.1f, _deltaTime);
+        stateMachine.heroAnimator.SetFloat(targetingForward, movementValue.y, 0.1f, _deltaTime);
+        stateMachine.heroAnimator.SetFloat(targetingRight, movementValue.x, 0.1f, _deltaTime);
     }
 
     public override void FixedTick(float _fixedDeltaTime)
