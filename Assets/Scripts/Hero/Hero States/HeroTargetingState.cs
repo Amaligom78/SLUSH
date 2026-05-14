@@ -12,10 +12,9 @@ public class HeroTargetingState : HeroBaseState
 
     public override void Enter()
     {
-        stateMachine.inputReader.TargetCanceledEvent += OnTargetCanceled;
+        stateMachine.inputReader.TargetCanceledEvent += OnTarget;
         stateMachine.heroAnimator.Play(heroTargetingBlendTree);
     }
-
 
     public override void Tick(float _deltaTime)
     {
@@ -25,30 +24,59 @@ public class HeroTargetingState : HeroBaseState
             return;
         }
 
-        movement = CalculateMovement();
+        movement = CalculateTargetingMovement();
 
-        Vector2 movementValue = stateMachine.inputReader.MovementValue;
-
-        stateMachine.heroAnimator.SetFloat(targetingForward, movementValue.y, 0.1f, _deltaTime);
-        stateMachine.heroAnimator.SetFloat(targetingRight, movementValue.x, 0.1f, _deltaTime);
+        UpdateAnimator(_deltaTime);
     }
 
     public override void FixedTick(float _fixedDeltaTime)
     {
-        if (stateMachine.targeter.currentTarget == null) return;
+        if (stateMachine.targeter.currentTarget == null)
+        {
+            return;
+        }
 
         Move(movement, _fixedDeltaTime);
         FaceTarget(_fixedDeltaTime);
     }
 
-    private void OnTargetCanceled()
+    private void UpdateAnimator(float deltaTime)
+    {
+        Vector2 movementValue = stateMachine.inputReader.MovementValue;
+
+        float forwardValue = 0f;
+        float rightValue = 0f;
+
+        if (movementValue.y > 0f)
+        {
+            forwardValue = 1f;
+        }
+        else if (movementValue.y < 0f)
+        {
+            forwardValue = -1f;
+        }
+
+        if (movementValue.x > 0f)
+        {
+            rightValue = 1f;
+        }
+        else if (movementValue.x < 0f)
+        {
+            rightValue = -1f;
+        }
+
+        stateMachine.heroAnimator.SetFloat(targetingForward, forwardValue, 0.1f, deltaTime);
+        stateMachine.heroAnimator.SetFloat(targetingRight, rightValue, 0.1f, deltaTime);
+    }
+
+    private void OnTarget()
     {
         stateMachine.SwitchState(new HeroMovementState(stateMachine));
     }
 
     public override void Exit()
     {
-        stateMachine.inputReader.TargetCanceledEvent -= OnTargetCanceled;
+        stateMachine.inputReader.TargetCanceledEvent -= OnTarget;
         stateMachine.targeter.ClearTarget();
     }
 }

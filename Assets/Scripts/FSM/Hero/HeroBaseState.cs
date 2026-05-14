@@ -36,6 +36,23 @@ public abstract class HeroBaseState : State
         return movement.normalized;
     }
 
+    protected Vector3 CalculateTargetingMovement()
+    {
+        Vector2 movementValue = stateMachine.inputReader.MovementValue;
+
+        Vector3 movement = Vector3.zero;
+
+        movement += stateMachine.transform.right * movementValue.x;
+        movement += stateMachine.transform.forward * movementValue.y;
+
+        if (movement.sqrMagnitude > 1f)
+        {
+            movement.Normalize();
+        }
+
+        return movement;
+    }
+
     protected void Move(Vector3 movement, float fixedDeltaTime)
     {
         if (movement.sqrMagnitude < 0.01f) return;
