@@ -37,6 +37,11 @@ public class Targeter : MonoBehaviour
         return true;
     }
 
+    public void StopTargeting()
+    {
+        currentTarget = null;
+    }
+
     public void ClearTarget()
     {
         if (currentTarget == null) return;

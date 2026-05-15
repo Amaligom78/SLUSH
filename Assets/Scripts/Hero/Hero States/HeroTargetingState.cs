@@ -77,6 +77,7 @@ public class HeroTargetingState : HeroBaseState
     public override void Exit()
     {
         stateMachine.inputReader.TargetCanceledEvent -= OnTarget;
-        stateMachine.targeter.ClearTarget();
+        stateMachine.SyncThirdPersonCameraToCurrentView();
+        stateMachine.targeter.StopTargeting();
     }
 }
