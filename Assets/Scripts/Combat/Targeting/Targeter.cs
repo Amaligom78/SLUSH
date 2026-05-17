@@ -5,9 +5,18 @@ using UnityEngine;
 
 public class Targeter : MonoBehaviour
 {
+    public Camera mainCamera { get; private set; }
     [SerializeField] private CinemachineTargetGroup targetGroup;
     private List<Target> targets = new List<Target>();
     public Target currentTarget { get; private set; } = null;
+
+    private void Start()
+    {
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+        }
+    }
 
     public void OnTriggerEnter(Collider other)
     {
@@ -31,7 +40,27 @@ public class Targeter : MonoBehaviour
         if (currentTarget != null) return true;
         if (targets.Count == 0) return false;
 
-        currentTarget = targets[0];
+        Target closestTarget = null;
+        float closestTargetDistance = Mathf.Infinity;
+
+        foreach (Target target in targets)
+        {
+            Vector2 viewPOS = mainCamera.WorldToViewportPoint(target.transform.position);
+
+            if (viewPOS.x < 0 || viewPOS.x > 1 || viewPOS.y < 0 || viewPOS.y > 1) continue;
+
+            Vector2 toCenter = viewPOS - new Vector2(0.5f, 0.5f);
+
+            if(toCenter.sqrMagnitude < closestTargetDistance)
+            {
+                closestTarget = target;
+                closestTargetDistance = toCenter.sqrMagnitude;
+            }
+        }
+
+        if(closestTarget == null) return false;
+
+        currentTarget = closestTarget;
         targetGroup.AddMember(currentTarget.transform, 1f, 2f);
 
         return true;

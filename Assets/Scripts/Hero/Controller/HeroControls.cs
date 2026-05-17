@@ -127,6 +127,15 @@ public partial class @HeroControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""0ea06783-7d15-4c03-bc18-79f9e268e9eb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -327,6 +336,28 @@ public partial class @HeroControls: IInputActionCollection2, IDisposable
                     ""action"": ""Target"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a4f0da15-5336-466b-ac92-c59b6d82e0c2"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard & Mouse"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6be24fea-6b50-4d56-9f2c-3b275f288859"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -367,6 +398,7 @@ public partial class @HeroControls: IInputActionCollection2, IDisposable
         m_Hero_Dodge = m_Hero.FindAction("Dodge", throwIfNotFound: true);
         m_Hero_Move = m_Hero.FindAction("Move", throwIfNotFound: true);
         m_Hero_Target = m_Hero.FindAction("Target", throwIfNotFound: true);
+        m_Hero_Attack = m_Hero.FindAction("Attack", throwIfNotFound: true);
     }
 
     ~@HeroControls()
@@ -451,6 +483,7 @@ public partial class @HeroControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Hero_Dodge;
     private readonly InputAction m_Hero_Move;
     private readonly InputAction m_Hero_Target;
+    private readonly InputAction m_Hero_Attack;
     /// <summary>
     /// Provides access to input actions defined in input action map "Hero".
     /// </summary>
@@ -478,6 +511,10 @@ public partial class @HeroControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Hero/Target".
         /// </summary>
         public InputAction @Target => m_Wrapper.m_Hero_Target;
+        /// <summary>
+        /// Provides access to the underlying input action "Hero/Attack".
+        /// </summary>
+        public InputAction @Attack => m_Wrapper.m_Hero_Attack;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -516,6 +553,9 @@ public partial class @HeroControls: IInputActionCollection2, IDisposable
             @Target.started += instance.OnTarget;
             @Target.performed += instance.OnTarget;
             @Target.canceled += instance.OnTarget;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
         }
 
         /// <summary>
@@ -539,6 +579,9 @@ public partial class @HeroControls: IInputActionCollection2, IDisposable
             @Target.started -= instance.OnTarget;
             @Target.performed -= instance.OnTarget;
             @Target.canceled -= instance.OnTarget;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
         }
 
         /// <summary>
@@ -633,5 +676,12 @@ public partial class @HeroControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTarget(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Attack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAttack(InputAction.CallbackContext context);
     }
 }

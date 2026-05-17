@@ -5,11 +5,12 @@ using Unity.Cinemachine;
 public class HeroFSM : StateMachine
 {
     [field: SerializeField] public HeroInputReader inputReader { get; private set; }
+    [field: SerializeField] public Attack_Data[] attackDatas { get; private set; }
     [field: SerializeField] public Targeter targeter { get; private set; }
     [field: SerializeField] public Animator heroAnimator { get; private set; }
     [field: SerializeField] public Transform cameraTransform { get; private set; }
     [field: SerializeField] public CinemachineCamera thirdPersonCamera { get; private set; }
-    [field: SerializeField] public Camera mainCamera { get; private set; }
+    public Camera mainCamera { get; private set; }
 
     private CinemachineOrbitalFollow thirdPersonOrbitalFollow;
     [field: SerializeField] public float moveSpeed { get; private set; } = 5f;

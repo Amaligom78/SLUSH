@@ -21,6 +21,13 @@ public class HeroMovementState : HeroBaseState
 
     public override void Tick(float _deltaTime)
     {
+
+        if (stateMachine.inputReader.IsAttacking)
+        {
+            stateMachine.SwitchState(new HeroAttackingState(stateMachine, 0));
+            return;
+        }
+
         if (stateMachine.inputReader.IsTargeting)
         {
             TryEnterTargetingState();
