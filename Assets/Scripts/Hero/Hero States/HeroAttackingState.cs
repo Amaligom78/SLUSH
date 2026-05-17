@@ -6,6 +6,7 @@ public class HeroAttackingState : HeroBaseState
 {
     private float previousFrameTime;
     private Attack_Data attackData;
+
     public HeroAttackingState(HeroFSM _stateMachine, int _attackIndex) : base(_stateMachine) 
     {
         attackData = stateMachine.attackDatas[_attackIndex];
@@ -13,6 +14,7 @@ public class HeroAttackingState : HeroBaseState
 
     public override void Enter()
     {
+        previousFrameTime = 0f;
         stateMachine.heroAnimator.CrossFadeInFixedTime(attackData.animationName, attackData.transitionDuration);
     }
 
@@ -29,14 +31,7 @@ public class HeroAttackingState : HeroBaseState
         }
         else
         {
-            if(stateMachine.targeter.currentTarget != null)
-            {
-                stateMachine.SwitchState(new HeroAttackingState(stateMachine, 0));
-            }
-            else
-            {
-                stateMachine.SwitchState(new HeroMovementState(stateMachine));
-            }
+            ReturnToLocomotion();
         }
 
             previousFrameTime = normalizeTime;
@@ -44,7 +39,17 @@ public class HeroAttackingState : HeroBaseState
 
     public override void FixedTick(float _fixedDeltaTime)
     {
-        
+        float normalizedTime = GetNormilizedTime();
+
+        if (stateMachine.targeter.currentTarget != null)
+        {
+            FaceTarget(_fixedDeltaTime);
+        }
+
+        if (normalizedTime >= attackData.movementStartTime && normalizedTime <= attackData.movementEndTime)
+        {
+            MoveForwardDuringAttack(attackData.forwardMovementSpeed, _fixedDeltaTime);
+        }
     }
 
     private float GetNormilizedTime()
@@ -76,6 +81,17 @@ public class HeroAttackingState : HeroBaseState
                 attackData.comboStateIndex
             )
         );
+    }
+
+    private void ReturnToLocomotion()
+    {
+        if (stateMachine.inputReader.IsTargeting && stateMachine.targeter.currentTarget != null)
+        {
+            stateMachine.SwitchState(new HeroTargetingState(stateMachine));
+            return;
+        }
+
+        stateMachine.SwitchState(new HeroMovementState(stateMachine));
     }
 
     public override void Exit()

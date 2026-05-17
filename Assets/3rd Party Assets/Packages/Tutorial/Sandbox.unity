@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 253291327}
   - component: {fileID: 253291326}
   - component: {fileID: 253291329}
+  - component: {fileID: 253291330}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -369,6 +370,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb6e95b8793511740bb3b93329609c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Target
+--- !u!114 &253291330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253291324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f0f6a39fa9f6a549a28a25adb8d9bc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityHealth
+  health: 100
 --- !u!1001 &282657522
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1441,6 +1455,7 @@ GameObject:
   - component: {fileID: 2044803959}
   - component: {fileID: 2044803958}
   - component: {fileID: 2044803962}
+  - component: {fileID: 2044803963}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1553,6 +1568,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb6e95b8793511740bb3b93329609c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Target
+--- !u!114 &2044803963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044803957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f0f6a39fa9f6a549a28a25adb8d9bc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntityHealth
+  health: 100
 --- !u!1001 &2060893654
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -88,4 +88,15 @@ public abstract class HeroBaseState : State
 
         stateMachine.rb.MoveRotation(newRotation);
     }
+
+    protected void MoveForwardDuringAttack(float movementSpeed, float fixedDeltaTime)
+    {
+        Vector3 movement = stateMachine.transform.forward;
+
+        Vector3 newPosition =
+            stateMachine.rb.position +
+            movement * movementSpeed * fixedDeltaTime;
+
+        stateMachine.rb.MovePosition(newPosition);
+    }
 }
