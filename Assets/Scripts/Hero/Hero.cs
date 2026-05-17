@@ -11,6 +11,8 @@ namespace System.Persistence
         [field: SerializeField] public SerializableGuid Id { get; set; } = SerializableGuid.NewGuid();
         [SerializeField] HeroData heroData;
         private Rigidbody rb;
+        [SerializeField] Weapon weaponLogic;
+        [SerializeField] WeaponData startingWeaponData;
 
         public void Bind(HeroData _data)
         {
@@ -22,6 +24,11 @@ namespace System.Persistence
             rb.rotation = heroData.heroRotation;
 
             UpdateStatsUI();
+        }
+
+        private void Start()
+        {
+            weaponLogic.AddWeapon(startingWeaponData);
         }
 
         private void Update()

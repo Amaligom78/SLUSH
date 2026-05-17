@@ -3,16 +3,16 @@ using UnityEngine;
 public class WeaponHandler : MonoBehaviour
 {
 
-    [SerializeField] private GameObject weaponLogic;
+    [SerializeField] private Weapon weaponLogic;
 
 
     public void EnableWeapon()
     {
-        weaponLogic.SetActive(true);
+        weaponLogic.Attack();
     }
 
     public void DisableWeapon()
     {
-        weaponLogic.SetActive(false);
+        weaponLogic.Disengage();
     }
 }

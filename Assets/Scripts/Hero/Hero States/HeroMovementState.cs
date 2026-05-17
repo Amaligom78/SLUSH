@@ -16,7 +16,7 @@ public class HeroMovementState : HeroBaseState
     public override void Enter()
     {
         stateMachine.inputReader.TargetStartedEvent += OnTargetStarted;
-        stateMachine.heroAnimator.Play(heroMovementBlendTree);
+        stateMachine.heroAnimator.CrossFadeInFixedTime(heroMovementBlendTree, 0.1f);
     }
 
     public override void Tick(float _deltaTime)
