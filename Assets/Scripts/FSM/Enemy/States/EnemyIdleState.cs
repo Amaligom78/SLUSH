@@ -4,7 +4,7 @@ using UnityEngine.Animations;
 public class EnemyIdleState : EnemyBaseState
 {
 
-    private readonly int enemyLocomotionSpeed = Animator.StringToHash("EnemyLocomotion");
+    private readonly int enemyLocomotionSpeed = Animator.StringToHash("Locomotion");
     private readonly int enemySpeed = Animator.StringToHash("EnemySpeed");
 
     public EnemyIdleState(EnemyFSM _stateMachine) : base(_stateMachine)
@@ -18,12 +18,18 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void Tick(float _deltaTime)
     {
-        stateMachine.enemyAnimator.SetFloat(enemySpeed, 0f, 0.1f, _deltaTime);
+
     }
 
     public override void FixedTick(float _fixedDeltaTime)
     {
+        if (IsInChaseRange())
+        {
+            stateMachine.SwitchState(new EnemyChasingState(stateMachine));
+            return;
+        }
 
+        stateMachine.enemyAnimator.SetFloat(enemySpeed, 0f, 0.1f, _fixedDeltaTime);
     }
 
     public override void Exit()

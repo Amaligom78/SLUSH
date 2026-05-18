@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 4452088679326198117}
   m_Layer: 8
   m_Name: Hero
-  m_TagString: Player
+  m_TagString: Hero
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1307,7 +1307,7 @@ GameObject:
   - component: {fileID: 1433287563797216564}
   m_Layer: 8
   m_Name: Graphics
-  m_TagString: Untagged
+  m_TagString: Hero
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2451,8 +2451,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7634226629498450040}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.13766013, y: -0.6343336, z: -0.11615365, w: 0.75178385}
-  m_LocalPosition: {x: 0.42164516, y: 3.014522, z: 4.1869335}
+  m_LocalRotation: {x: -0.13781959, y: -0.63430697, z: -0.116287544, w: 0.75175637}
+  m_LocalPosition: {x: -4.137308, y: 3.6164365, z: -11.257415}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
