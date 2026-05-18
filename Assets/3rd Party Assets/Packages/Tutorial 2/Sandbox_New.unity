@@ -2569,6 +2569,10 @@ PrefabInstance:
       propertyPath: <enemyMovementSpeed>k__BackingField
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3348945849369357375, guid: 5d3868399f944914aaee7ea414df7cee, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7460884435506867040, guid: 5d3868399f944914aaee7ea414df7cee, type: 3}
       propertyPath: m_Name
       value: Enemy

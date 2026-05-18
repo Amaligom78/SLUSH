@@ -10,23 +10,32 @@ public class EnemyFSM : StateMachine
     [field: SerializeField] public Animator enemyAnimator { get; private set; }
     public GameObject hero { get; private set; }
     [field: SerializeField] public float heroChaseRange { get; private set; }
-    [field: SerializeField] public float enemyMovementSpeed { get; private set; } = 20f;
+    [field: SerializeField] public float enemyMovementSpeed { get; private set; } = 3.5f;
+    [field: SerializeField] public float enemyRotationSpeed { get; private set; } = 10f;
 
 
-    private void Start()
+    private void Awake()
     {
-        SwitchState(new EnemyIdleState(this));
         rb = GetComponent<Rigidbody>();
         navAgent = GetComponent<NavMeshAgent>();
         hero = GameObject.FindGameObjectWithTag("Hero");
 
         navAgent.updatePosition = false;
         navAgent.updateRotation = false;
+        navAgent.speed = enemyMovementSpeed;
     }
 
-    private void Update()
+    private void Start()
     {
+        SwitchState(new EnemyIdleState(this));
+    }
 
+    private void LateUpdate()
+    {
+        if (navAgent != null)
+        {
+            navAgent.nextPosition = rb.position;
+        }
     }
 
     private void OnDrawGizmos()

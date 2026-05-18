@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557b6f68922f8614ba97882e80794e30, type: 3}
   m_Name: Skinny
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  damageOutput: 1
+  damageOutput: 150
   graphics: {fileID: 4300000, guid: 1958875ebe8c50b4b9cca36e96b6102d, type: 3}
